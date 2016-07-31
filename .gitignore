@@ -1,5 +1,4 @@
-public/vendor/*
-!public/vendor/materialize/sass/backbone.scss
+public/vendor
 sass
 node_modules
 .sass-cache/
