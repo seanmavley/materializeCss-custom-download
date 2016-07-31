@@ -8,11 +8,11 @@
     <meta name="description" content="Customize your MaterializeCSS and Download instantly!">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Custom Download MaterializeCSS</title>
-    <meta name="description" content="Custom Download MaterializeCSS. Pick and choose the features you want or have the whole enchilada.">
-    <meta property="og:description" content="Custom Download MaterializeCSS. Pick and choose the features you want or have the whole enchilada.">
+    <meta name="description" content="Customize MaterializeCSS and Download. Pick and choose the features you want or have the whole enchilada.">
+    <meta property="og:description" content="Customize MaterializeCSS and Download. Pick and choose the features you want or have the whole enchilada.">
     <meta property="og:site_name" content="Custom MaterializeCSS">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:description" content="Custom Download MaterializeCSS. Pick and choose the features you want or have the whole enchilada.">
+    <meta name="twitter:description" content="Customize MaterializeCSS and Download. Pick and choose the features you want or have the whole enchilada.">
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
     <!-- <link rel="icon" sizes="192x192" href="images/android-desktop.png"> -->
@@ -37,21 +37,16 @@
                 <div class="col s12 m5">
                     <h3 class="flow-text">Customize MaterializeCSS <br/> and Download <small>(beta)</small></h3>
                     <p>
-                        <a class="center-align" href="mailto:hello@khophi.co">Send Feedback</a>
+                        <a class="center-align" href="#about">About & FAQ</a>
                     </p>
                 </div>
                 <div class="col s12 m7">
                 <p>
-                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                    <!-- materialize.khophi.co -->
-                    <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3447974026628607" data-ad-slot="4939692779" data-ad-format="auto"></ins>
-                    <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                    </p>
+                    Ad Here
+                </p>
                 </div>
             </div>
-            <form action="/" method="post" class="card" id="form">
+            <form action="/" method="post" id="form">
                 <div class="col s12">
                     <p style="margin-left:12px;">
                         <input type="checkbox" class="filled-in" id="all" name="all" />
@@ -160,7 +155,61 @@
                 </div>
             </form>
         </div>
-
+    <div class="divider"></div>
+    <div class="row">
+        <div class="card">
+            <div class="card-content">
+              <span class="card-title" id="about">About Custom Materialize Download</span>
+              <p>
+                This website allows you to customize your MaterializeCSS before you download based on the most stable version.
+              </p>
+              <p>
+                  Check the Sass modules you wish to download and use in your project and press the "Download Build" button.
+              </p>
+              <span class="card-title">Which Materialize Version</span>
+              <p>
+                  Current build version is the most stable version of MaterializeCSS. A cron task updates the local repo everyday, ensuring your custom builds are always the latest and most stable.
+              </p>
+              <span class="card-title">What Modules are included by default?</span>
+              <p>
+                  By default, the packages below are added to every custom build you make. Without them, the build might break. Default included modules are:
+                  <ul>
+                    <li>@import "components/prefixer";</li>
+                    <li>@import "components/mixins";</li>
+                    <li>@import "components/color";</li>
+                    <li>@import "components/variables";</li>
+                    <li>@import "components/normalize";</li>
+                    <li>@import "components/global";</li>
+                    <li>@import "components/icons-material-design";</li>
+                    <li>@import "components/typography";</li>
+                  </ul>
+              </p>  
+              <p>
+                  Any additional checkboxes will be added to the above variables.
+              </p>
+              <span class="card-title">Why are Custom Builds important?</span>
+              <p>
+                  Minimal features and file size. Perhaps you are interested in using Material Design for a your site, but do not want anything else. Building specifically to target these needs ensures you end up with a minimal file size, and less CSS conflicts within your project.
+              </p>
+              <br/>
+              <p>
+                  I always enjoy using Foundation for Sites Custom project downloader. I enjoy using Materialize CSS, so in order to help me build custom CSS files easily for my projects in a GUI manner, I 'Weekend-thon' this Material Custom website.
+              </p>
+              <br>
+              <p>
+                  I hope you might find this useful. Any feedback or feature requests? Please email me below.
+              </p>
+            </div>
+            <div class="card-action center-align">
+              <a href="http://blog.khophi.co" class="btn-flat waves-effect waves-light purple lighten-2 black-text" target="new">Blog</a>
+              <a href="mailto:hello@khophi.co" target="new" class="black-text btn-flat waves-effect waves-light red lighten-2">Send Feedback</a>
+              <a href="http://bitbucket.com/seanmavley/matcustom" class="black-text btn-flat waves-effect waves-light green lighten-2" target="new">Github</a>
+              <a href="http://khophi.co" class="black-text btn-flat waves-effect waves-light orange lighten-2" target="new">About Me</a>
+            </div>
+            <div class="card-action center-align">
+                &copy; 2016 <a href="http://theafricandream.co">TheAfricanDream LLC</a>
+            </div>
+          </div>
     </div>
 </body>
 <script src="./vendor/jquery/dist/jquery.min.js"></script>
@@ -191,7 +240,7 @@ $(document).ready(function() {
             return true;
         } else {
             // alert("error: you must fill in at least one field");
-            Materialize.toast("error: you must fill in at least one field", 5000);
+            Materialize.toast("Duh! Download Everything, or at least check a box!", 7000);
             return false;
         }
     })
