@@ -1,0 +1,4 @@
+public/vendor
+sass
+node_modules
+!public/vendor/materialize/sass/barebone.scss
