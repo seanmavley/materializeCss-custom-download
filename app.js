@@ -43,13 +43,13 @@ function buildSass(destination, res) {
     outputStyle: 'compressed'
   }, function(error, result) { // node-style callback from v3.0.0 onwards 
     if (error) {
-      console.log(error.status); // used to be "code" in v2x and below 
-      console.log(error.column);
+      // console.log(error.status); 
+      // console.log(error.column);
       console.log(error.message);
       console.log(error.line);
-      res.render('index', { title: 'Bad Error Express', result: 'Error only' });
+      res.render('index', { error: error.message, line: error.line });
     } else {
-      console.log(result.stats);
+      // console.log(result.stats);
       res.set({
         'Content-Type': 'text/css',
         'Content-disposition': 'attachment; filename=custom-download.css'
