@@ -83,7 +83,6 @@ function doLoop(req, toFile) {
 };
 
 function newSassFile(req, res) {
-
   var filename = uuid.v1(); // a random generated file
   // store file in materialize folder
   // TODO: De-couple this vendor file from build
