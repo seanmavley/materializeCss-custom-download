@@ -8,9 +8,11 @@ var sass = require('node-sass');
 var fs = require('fs-extra');
 var replace = require('replace');
 var uuid = require('node-uuid');
+var helmet = require('helmet');
 
 var app = express();
 app.use(compression());
+app.use(helmet());
 // view engine setup
 app.set('views', path.join(__dirname, 'views/'));
 app.set('view engine', 'twig');
