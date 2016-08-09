@@ -164,7 +164,7 @@
                     </div>
                     <div class="col s12" style="margin-top:20px;">
                         <!-- <input type="submit" class="btn waves-effect waves-light"> -->
-                        <button type="submit" class="btn waves-effect waves-light">Download Custom</button>
+                        <button type="submit" onclick="ga('send', 'button', 'CSS', 'download', 'Download Materialize');" class="btn waves-effect waves-light">Download Custom</button>
                     </div>
                 </div>
             </form>
@@ -230,6 +230,7 @@
 <script src="./vendor/materialize/dist/js/materialize.min.js"></script>
 <script>
 $(document).ready(function() {
+
     $('#all').click(function(event) {
         if (this.checked) {
             $(':checkbox').each(function() {
