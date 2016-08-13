@@ -28,5 +28,8 @@ I always enjoy using Foundation for Sites Custom project downloader. I enjoy usi
 
 I hope you might find this useful. Any feedback or feature requests? Please email me at hello@khophi.com
 
+# TODO
+ - Write tests
+
 # License
 See the LICENSE file
