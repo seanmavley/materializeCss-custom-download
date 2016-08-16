@@ -75,7 +75,7 @@ function buildSass(destination, res) {
         'Content-Type': 'text/css',
         'Content-disposition': 'attachment; filename=custom-download.css'
       });
-      houseCleaning(destination);
+      // houseCleaning(destination);
       return res.send(result.css);
     }
   });
@@ -109,6 +109,7 @@ function newSassFile(req, res) {
   // TODO: De-couple this vendor file from build
   // Might cause conflict during bower updates
   var destination = './public/vendor/materialize/sass/' + filename + '.scss';
+  console.log(destination);
 
   console.log('Copying begins');
   fs.copy('./public/vendor/materialize/sass/barebone.scss', destination, function(err) {
