@@ -9,6 +9,9 @@ var fs = require('fs-extra');
 var replace = require('replace');
 var uuid = require('node-uuid');
 var helmet = require('helmet');
+var nodemailer = require('nodemailer');
+var config = require('./.config');
+var transporter = nodemailer.createTransport(config);
 
 var app = express();
 app.use(compression());
@@ -49,7 +52,23 @@ function buildSass(destination, res) {
       // console.log(error.column);
       console.log(error.message);
       console.log(error.line);
-      res.render('index', { error: error.message, line: error.line });
+
+      var mailOpts = {
+        from: 'urgent@khophi.co',
+        to: 'nkansahrexford@gmail.com',
+        subject: error.status,
+        text: error.message,
+        html: error.message
+      };
+
+      transporter.sendMail(mailOpts, function(err, response) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('Error message sent');
+        }
+      });
+      res.render('index', { error: 'Something did not go right! The developer has been notified.' });
     } else {
       // console.log(result.stats);
       res.set({
@@ -64,7 +83,7 @@ function buildSass(destination, res) {
 
 function houseCleaning(destination) {
   fs.remove(destination, function(err) {
-    if(err) return console.error(err);
+    if (err) return console.error(err);
 
     console.log('House cleaning done!');
   })
