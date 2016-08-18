@@ -164,7 +164,9 @@
                     </div>
                     <div class="col s12" style="margin-top:20px;">
                         <!-- <input type="submit" class="btn waves-effect waves-light"> -->
-                        <button type="submit" onclick="ga('send', 'event', 'CustomDownload', 'BuildButtonPressed', 'DownloadButton');" class="btn waves-effect waves-light">Download Custom</button>
+                        <button type="submit" onclick="ga('send', 'event', 'CustomDownload', 'BuildButtonPressed', 'DownloadButton');" class="btn waves-effect waves-light">Download Custom</button> 
+                        <input type="checkbox" class="filled-in" id="minify" name="minify" />
+                        <label for="minify">Minify for me</label>
                     </div>
                 </div>
             </form>
@@ -232,6 +234,17 @@
 $(document).ready(function() {
 
     $('#all').click(function(event) {
+        /*
+        a better cleaner shorter alternative is this
+        but doesn't work
+
+        if(this.checked) {
+            $(':checkbox').each(function() {
+                this.checked = !this.checked;
+            })
+        }
+
+        */
         if (this.checked) {
             $(':checkbox').each(function() {
                 this.checked = true;

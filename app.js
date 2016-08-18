@@ -27,6 +27,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+function checkMinify(req) {
+  /* User wants minification? 
+  Check that here
+  */
+  if (req.body.minify === 'on') {
+    return true;
+  } else {
+    return false;
+  }
+};
 
 function doReplace(oldString, newString, toFile) {
   // handles the replacement of the strings in
@@ -41,11 +51,16 @@ function doReplace(oldString, newString, toFile) {
   });
 }
 
-function buildSass(destination, res) {
+function buildSass(destination, res, isEverything, minify) {
+  var doCompress = 'nested';
+  if (minify) {
+    doCompress = 'compressed';
+  };
+
   sass.render({
     file: destination,
     includePaths: ['./public/vendor/materialize/sass/components/'],
-    outputStyle: 'compressed'
+    outputStyle: doCompress
   }, function(error, result) { // node-style callback from v3.0.0 onwards 
     if (error) {
       // console.log(error.status); 
@@ -68,18 +83,21 @@ function buildSass(destination, res) {
           console.log('Error message sent');
         }
       });
-      res.render('index', { error: 'Something did not go right! The developer has been notified.' });
+      res.render('index', { error: 'Something did not go right! The developer has been notified via immediate email.' });
     } else {
       // console.log(result.stats);
       res.set({
         'Content-Type': 'text/css',
         'Content-disposition': 'attachment; filename=custom-download.css'
       });
-      // houseCleaning(destination);
+
+      // we want to run housecleaning ONLY when 
+      // not everything is selected.
+      if (!isEverything) houseCleaning(destination);
       return res.send(result.css);
     }
   });
-}
+};
 
 function houseCleaning(destination) {
   fs.remove(destination, function(err) {
@@ -87,17 +105,22 @@ function houseCleaning(destination) {
 
     console.log('House cleaning done!');
   })
-}
+};
 
 function doLoop(req, toFile) {
   for (key in req.body) {
     if (req.body.hasOwnProperty(key)) {
+      // don't bother about {'minify': 'on'} to 
+      if (key === 'minify') {
+        return 'Jumping minify';
+      };
+
       console.log('//' + key, '@import "' + 'components/' + key + '";');
+
       if (key === 'forms') {
         console.log('Forms were involved');
-        // console.log('//' + key, '@import "' + 'components/' + key + '/' + key + '";');
         doReplace('//' + key, '@import "' + 'components/' + key + '/' + key + '";', toFile);
-      }
+      };
       doReplace('//' + key, '@import "' + 'components/' + key + '";', toFile);
     }
   }
@@ -116,24 +139,27 @@ function newSassFile(req, res) {
     if (err) return console.log(err);
     console.log('File created successfuly');
     // tucked in here because of race conditions. 
-    // The tend to run before the copy happens.
+    // The tendency to run before the copy happens.
     console.log('Looping begins');
     doLoop(req, destination);
     console.log('Sass building begins');
-    buildSass(destination, res);
+    buildSass(destination, res, false, checkMinify(req));
   });
-}
+};
 
 app.post('/', function(req, res) {
+  // if (req.body.minify === 'on')
+  // if building everything materializecss
   if (req.body.all === 'on') {
     console.log('Building for everything MaterializeCSS');
-    buildSass('./public/vendor/materialize/sass/materialize.scss', res);
+    buildSass('./public/vendor/materialize/sass/materialize.scss', res, true, checkMinify(req));
     return true;
+  } else {
+    console.log(req.body);
+    // Processes everything and returns a .css attachment file
+    // based on selected inputs from user.
+    newSassFile(req, res);
   }
-  // post object
-  console.log(req.body);
-  // Processes everything and returns a .css attachment file
-  newSassFile(req, res);
 });
 
 app.get('/', function(req, res) {
@@ -159,7 +185,7 @@ if (app.get('env') === 'development') {
       error: err
     });
   });
-}
+};
 
 // production error handler
 // no stacktraces leaked to user
@@ -174,4 +200,4 @@ app.use(function(err, req, res, next) {
 var port = process.env.PORT || 3000;
 
 app.listen(port);
-console.log('Up and running at ' + port);
+console.log('Up and running at http://localhost:' + port);
