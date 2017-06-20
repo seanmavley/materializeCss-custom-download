@@ -4,14 +4,8 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-var sass = require('node-sass');
-var fs = require('fs-extra');
-var replace = require('replace');
-var uuid = require('node-uuid');
 var helmet = require('helmet');
-var nodemailer = require('nodemailer');
-var config = require('./.config');
-var transporter = nodemailer.createTransport(config);
+
 var utils = require('./utilities');
 
 var app = express();

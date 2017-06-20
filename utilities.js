@@ -1,9 +1,13 @@
 var sass = require('node-sass');
-var nodemailer = require('nodemailer');
 var config = require('./.config');
+var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport(config);
+var uuid = require('node-uuid');
+var fs = require('fs-extra');
+var replace = require('replace');
 
-module.exports = {
+
+var self = module.exports = {
   checkMinify: function(req) {
     /* User wants minification? 
     Check that here
@@ -74,7 +78,7 @@ module.exports = {
 
         // we want to run housecleaning ONLY when 
         // not everything is selected.
-        if (!isEverything) houseCleaning(destination);
+        if (!isEverything) self.houseCleaning(destination);
         return res.send(result.css);
       }
     });
@@ -89,8 +93,13 @@ module.exports = {
   },
 
   doLoop: function(req, toFile) {
+    console.log(req.body); 
+    console.log(typeof(req.body));
     for (key in req.body) {
-      if (req.body.hasOwnProperty(key)) {
+      console.log(key);
+      console.log(req.body[key]);
+
+      if (req.body[key] !== undefined) {
         // don't bother about {'minify': 'on'} to 
         if (key === 'minify') {
           return 'Jumping minify';
@@ -100,9 +109,9 @@ module.exports = {
 
         if (key === 'forms') {
           console.log('Forms were involved');
-          doReplace('//' + key, '@import "' + 'components/' + key + '/' + key + '";', toFile);
+          self.doReplace('//' + key, '@import "' + 'components/' + key + '/' + key + '";', toFile);
         };
-        doReplace('//' + key, '@import "' + 'components/' + key + '";', toFile);
+        self.doReplace('//' + key, '@import "' + 'components/' + key + '";', toFile);
       }
     }
   },
@@ -122,9 +131,9 @@ module.exports = {
       // tucked in here because of race conditions. 
       // The tendency to run before the copy happens.
       console.log('Looping begins');
-      doLoop(req, destination);
+      self.doLoop(req, destination);
       console.log('Sass building begins');
-      buildSass(destination, res, false, checkMinify(req));
+      self.buildSass(destination, res, false, self.checkMinify(req));
     });
   }
 }
