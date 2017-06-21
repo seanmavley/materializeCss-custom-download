@@ -12,14 +12,14 @@ By default, the packages below are added to every custom build you make. Without
 
 Default included modules are:
 ```
- - @import "components/prefixer";
- - @import "components/mixins";
- - @import "components/color";
- - @import "components/variables";
- - @import "components/normalize";
- - @import "components/global";
- - @import "components/icons-material-design";
- - @import "components/typography";
+ @import "components/prefixer";
+ @import "components/mixins";
+ @import "components/color";
+ @import "components/variables";
+ @import "components/normalize";
+ @import "components/global";
+ @import "components/icons-material-design";
+ @import "components/typography";
  ```
 
 Any additional checkboxes will be added to the above variables.
