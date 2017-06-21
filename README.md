@@ -11,7 +11,7 @@ Any custom CSS downloaded from here is from the latest stable release of Materia
 By default, the packages below are added to every custom build you make. Without them, the build might break. 
 
 Default included modules are:
-
+```
  - @import "components/prefixer";
  - @import "components/mixins";
  - @import "components/color";
@@ -20,6 +20,7 @@ Default included modules are:
  - @import "components/global";
  - @import "components/icons-material-design";
  - @import "components/typography";
+ ```
 
 Any additional checkboxes will be added to the above variables.
 
