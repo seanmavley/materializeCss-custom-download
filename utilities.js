@@ -6,7 +6,8 @@ var uuid = require('node-uuid');
 var fs = require('fs-extra');
 var replace = require('replace');
 
-
+// using 'self' in order to reference the functions 
+// within the module.exports within the exports itself.
 var self = module.exports = {
   checkMinify: function(req) {
     /* User wants minification? 
@@ -21,8 +22,14 @@ var self = module.exports = {
   },
 
   doReplace: function(oldString, newString, toFile) {
-    // handles the replacement of the strings in
-    // the 'toFile'
+    /*
+      Takes a component .scss path as string, and replaces
+      with on-the-fly generated string filename for building
+      into CSS
+
+      handles the replacement of the strings in the 'toFile'
+    */
+ 
     console.log(toFile);
     replace({
       regex: oldString,
@@ -36,10 +43,9 @@ var self = module.exports = {
   buildSass: function(destination, res, isEverything, minify) {
     var doCompress = 'nested';
 
-    // minify ? var doCompress = 'compressed': var doCompress = 'compressed'
-
+    // Was 'minify' selected?
     if (minify) {
-      doCompress = 'compressed';
+      doCompress = 'compressed'; // option for minifying generated .css
     };
 
     sass.render({
@@ -94,7 +100,7 @@ var self = module.exports = {
 
   doLoop: function(req, toFile) {
     console.log(req.body); 
-    console.log(typeof(req.body));
+
     for (key in req.body) {
       console.log(key);
       console.log(req.body[key]);
