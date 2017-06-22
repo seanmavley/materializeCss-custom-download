@@ -20,7 +20,7 @@ Default included modules are:
  @import "components/global";
  @import "components/icons-material-design";
  @import "components/typography";
- ```
+```
 
 Any additional checkboxes will be added to the above variables.
 

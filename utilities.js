@@ -8,6 +8,28 @@ var replace = require('replace');
 
 // using 'self' in order to reference the functions 
 // within the module.exports within the exports itself.
+
+function sendErrorMail(status, message) {
+  /*
+    Send Error Email 
+  */
+  var mailOpts = {
+    from: 'urgent@khophi.co',
+    to: 'nkansahrexford@gmail.com',
+    subject: status,
+    text: message,
+    html: message
+  };
+
+  transporter.sendMail(mailOpts, function(err, response) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('Error message sent');
+    }
+  })
+};
+
 var self = module.exports = {
   checkMinify: function(req) {
     /* User wants minification? 
@@ -29,7 +51,7 @@ var self = module.exports = {
 
       handles the replacement of the strings in the 'toFile'
     */
- 
+
     console.log(toFile);
     replace({
       regex: oldString,
@@ -59,21 +81,9 @@ var self = module.exports = {
         console.log(error.message);
         console.log(error.line);
 
-        var mailOpts = {
-          from: 'urgent@khophi.co',
-          to: 'nkansahrexford@gmail.com',
-          subject: error.status,
-          text: error.message,
-          html: error.message
-        };
+        // error message to 'nkansahrexford@gmail.com'
+        sendErrorMail(error.status, error.message);
 
-        transporter.sendMail(mailOpts, function(err, response) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log('Error message sent');
-          }
-        });
         res.render('index', { error: 'Something did not go right! The developer has been notified via immediate email.' });
       } else {
         // console.log(result.stats);
@@ -99,7 +109,7 @@ var self = module.exports = {
   },
 
   doLoop: function(req, toFile) {
-    console.log(req.body); 
+    console.log(req.body);
 
     for (key in req.body) {
       console.log(key);
